@@ -12,12 +12,28 @@ namespace AdventOfCode
             var solvers = new List<ISolver>();
             solvers.Add(new SolverDay1(@"input\2020\input_1.txt"));
             solvers.Add(new SolverDay2(@"input\2020\input_2.txt"));
-            //solvers.Add(new SolverDay1(@"input\2020\input_1.txt"));
+            solvers.Add(new SolverDay3(@"input\2020\input_3.txt"));
 
             foreach (var solver in solvers)
             {
-                Console.WriteLine($"{solver.Name} part 1 {solver.SolvePart1()}");
+                try
+                {
+                    Console.WriteLine($"{solver.Name} part 1 {solver.SolvePart1()}");
+                }
+                catch (NotImplementedException) { }
+                catch (System.Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                try
+                {
                 Console.WriteLine($"{solver.Name} part 2 {solver.SolvePart2()}");
+                }
+                catch (NotImplementedException) { }
+                catch (System.Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
             }
         }
     }
