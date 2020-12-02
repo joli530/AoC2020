@@ -1,40 +1,26 @@
 ﻿using System;
+using System.IO;
 using AoC.Solvers;
 using AoC.Common;
 using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System.Threading.Tasks;
 
 namespace AdventOfCode
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            var solvers = new List<ISolver>();
-            solvers.Add(new SolverDay1(@"input\2020\input_1.txt"));
-            solvers.Add(new SolverDay2(@"input\2020\input_2.txt"));
-            solvers.Add(new SolverDay3(@"input\2020\input_3.txt"));
 
-            foreach (var solver in solvers)
-            {
-                try
-                {
-                    Console.WriteLine($"{solver.Name} part 1 {solver.SolvePart1()}");
-                }
-                catch (NotImplementedException) { }
-                catch (System.Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
-                }
-                try
-                {
-                Console.WriteLine($"{solver.Name} part 2 {solver.SolvePart2()}");
-                }
-                catch (NotImplementedException) { }
-                catch (System.Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
-                }
-            }
+            var builder = Host.CreateDefaultBuilder(args)
+            .ConfigureAppConfiguration((hostContext, builder) =>
+                builder.AddUserSecrets("AOC2020"))
+            .ConfigureServices((hostContext, services) =>
+                services.AddHostedService<AoCHostedService>()
+            ).RunConsoleAsync();
         }
     }
 }
