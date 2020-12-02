@@ -1,7 +1,8 @@
 namespace AoC.Common
 {
-    abstract public class Solver
+    abstract public class Solver : ISolver
     {
+        public string Name { get; set;}
         protected string inputFileName;
 
         public Solver(string inputFileName)

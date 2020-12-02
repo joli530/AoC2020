@@ -9,6 +9,7 @@ namespace AoC.Solvers
         List<int> input = new List<int>();
         public SolverDay1(string inputFile):base(inputFile)
         {
+            Name = "Day 1";
             var parser = new Parser<int>();
             input = parser.Parse(inputFile);
         } 

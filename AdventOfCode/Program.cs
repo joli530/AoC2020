@@ -1,5 +1,7 @@
 ﻿using System;
 using AoC.Solvers;
+using AoC.Common;
+using System.Collections.Generic;
 
 namespace AdventOfCode
 {
@@ -7,9 +9,16 @@ namespace AdventOfCode
     {
         static void Main(string[] args)
         {
-            var solver = new SolverDay1(@"input\2020\input_1.txt");
-            Console.WriteLine($"Day 1 part 1 {solver.SolvePart1()}.");
-            Console.WriteLine($"Day 1 part 2 {solver.SolvePart2()}.");
+            var solvers = new List<ISolver>();
+            solvers.Add(new SolverDay1(@"input\2020\input_1.txt"));
+            solvers.Add(new SolverDay2(@"input\2020\input_2.txt"));
+            //solvers.Add(new SolverDay1(@"input\2020\input_1.txt"));
+
+            foreach (var solver in solvers)
+            {
+                Console.WriteLine($"{solver.Name} part 1 {solver.SolvePart1()}");
+                Console.WriteLine($"{solver.Name} part 2 {solver.SolvePart2()}");
+            }
         }
     }
 }
