@@ -10,7 +10,7 @@ namespace AoC.Common
             this.inputFileName = inputFileName;
         }
 
-        public abstract int SolvePart1();
-        public abstract int SolvePart2();
+        public abstract string SolvePart1();
+        public abstract string SolvePart2();
     }
 }

@@ -1,9 +1,10 @@
+using System;
 namespace AoC.Common
 {
     public interface ISolver
     {
         string Name {get;}
-        int SolvePart1();
-        int SolvePart2();
+        string SolvePart1();
+        string SolvePart2();
     }
 }

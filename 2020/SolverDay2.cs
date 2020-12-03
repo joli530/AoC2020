@@ -14,13 +14,13 @@ namespace AoC.Solvers
             Name = "Day 2";
             input = System.IO.File.ReadAllLines(inputFile).Select(l=>new Password(l));
         } 
-        public override int SolvePart1()
+        public override string SolvePart1()
         {
-           return input.Where(p => p.IsValid).Count();
+           return input.Where(p => p.IsValid).Count().ToString();
         }
-        public override int SolvePart2()
+        public override string SolvePart2()
         {
-            return input.Where(p => p.IsValidInNewPolicy).Count();
+            return input.Where(p => p.IsValidInNewPolicy).Count().ToString();
         }
     }
 

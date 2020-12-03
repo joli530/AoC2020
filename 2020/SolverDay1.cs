@@ -13,7 +13,7 @@ namespace AoC.Solvers
             var parser = new Parser<int>();
             input = parser.Parse(inputFile);
         } 
-        public override int SolvePart1()
+        public override string SolvePart1()
         {
             for (int i = 0; i < input.Count; i++)
             {
@@ -21,13 +21,13 @@ namespace AoC.Solvers
                 {
                     if(i != j && (input[i] + input[j] == 2020))
                     {
-                        return input[i] * input[j];
+                        return (input[i] * input[j]).ToString();
                     }
                 }
             }
             throw new System.Exception("Solution not found");
         }
-        public override int SolvePart2()
+        public override string SolvePart2()
         {
              for (int i = 0; i < input.Count; i++)
             {
@@ -37,7 +37,7 @@ namespace AoC.Solvers
                     {
                         if(i != j && i != k && j != k && (input[i] + input[j] + input[k] == 2020))
                         {
-                            return input[i] * input[j] * input[k];
+                            return (input[i] * input[j] * input[k]).ToString();
                         }
                     }
                 }
