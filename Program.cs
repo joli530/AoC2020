@@ -19,7 +19,10 @@ namespace AdventOfCode
             .ConfigureAppConfiguration((hostContext, builder) =>
                 builder.AddUserSecrets("AOC2020"))
             .ConfigureServices((hostContext, services) =>
-                services.AddHostedService<AoCHostedService>()
+            {
+                services.AddHostedService<AoCHostedService>();
+                services.AddTransient<InputReader>();
+            }
             ).RunConsoleAsync();
         }
     }

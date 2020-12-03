@@ -17,13 +17,17 @@ namespace AdventOfCode
 
         private readonly IHostApplicationLifetime _appLifetime;
         private readonly ILogger<AoCHostedService> _logger;
+        private readonly InputReader _inputReader;
+
 
         public AoCHostedService(
         ILogger<AoCHostedService> logger,
-        IHostApplicationLifetime appLifetime)
+        IHostApplicationLifetime appLifetime,
+        InputReader inputReader)
     {
         _logger = logger;
         _appLifetime = appLifetime;
+        _inputReader = inputReader;
     }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -31,6 +35,10 @@ namespace AdventOfCode
             var solvers = new List<ISolver>();
             solvers.Add(new SolverDay1(@"input\2020\input_1.txt"));
             solvers.Add(new SolverDay2(@"input\2020\input_2.txt"));
+            if(!System.IO.File.Exists(@"input\2020\input_3.txt"))
+            {
+                _inputReader.GetInput(2020,3,@"input\2020\input_3.txt");
+            }
             solvers.Add(new SolverDay3(@"input\2020\input_3.txt"));
 
             foreach (var solver in solvers)
