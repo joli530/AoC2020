@@ -40,7 +40,11 @@ namespace AdventOfCode
                 _inputReader.GetInput(2020,3,@"input\2020\input_3.txt");
             }
             solvers.Add(new SolverDay3(@"input\2020\input_3.txt"));
-
+            if(!System.IO.File.Exists(@"input\2020\input_4.txt"))
+            {
+                _inputReader.GetInput(2020,4,@"input\2020\input_4.txt");
+            }
+            solvers.Add(new SolverDay4(@"input\2020\input_4.txt"));
             foreach (var solver in solvers)
             {
                 try
