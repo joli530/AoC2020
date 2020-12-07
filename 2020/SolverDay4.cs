@@ -42,6 +42,22 @@ namespace AoC.Solvers
             return validPassports.Count().ToString();
         }
 
+        public void TestPart2(string inputFile, string expected)
+        {
+            var inputText = System.IO.File.ReadAllText(inputFile);
+            var regex = new Regex(@"((?<fields>(?<field_name>\w+):(?<field_value>#?\w+))( |(\r\n)?))+");
+            var matches = regex.Matches(inputText);
+            Console.WriteLine($"{matches.Count} matches found");
+            var passports = new List<Passport>();
+            foreach (Match match in matches)
+            {
+                passports.Add(new Passport(match.Groups["fields"].Captures.Select(c=>c.Value).ToList()));
+            }
+            var validPassports = passports.Where(p=>p.IsValid).ToList();
+            var actual = validPassports.Count().ToString();
+            Console.WriteLine($"Expected {expected}, Actual {actual}");
+        }
+
         
     }
 
@@ -59,21 +75,23 @@ namespace AoC.Solvers
 // pid (Passport ID) - a nine-digit number, including leading zeroes.
 // cid (Country ID) - ignored, missing or not
         [Required, Range(1920,2002)]
-        public int? byr {get { return _fields.ContainsKey("byr")?int.Parse(_fields["byr"]):null;}}
+        public int byr {get { return _fields.ContainsKey("byr")?int.Parse(_fields["byr"]):0;}}
         [Required, Range(2010,2020)]
-        public int? iyr {get { return _fields.ContainsKey("iyr")?int.Parse(_fields["iyr"]):null;}}
-        [Required, Range(2020,2030)]
-        public int? eyr {get { return _fields.ContainsKey("eyr")?int.Parse(_fields["eyr"]):null;}}
+        public int iyr {get { return _fields.ContainsKey("iyr")?int.Parse(_fields["iyr"]):0;}}
+        [Required]
+        [Range(2020,2030)]
+        public int eyr {get { return _fields.ContainsKey("eyr")?int.Parse(_fields["eyr"]):0;}}
        [Required]
         public string hgt {get { return _fields.ContainsKey("hgt")?_fields["hgt"]:null;}}
-        [Required, RegularExpression(@"#\d{6}|[a-f]{6}")]
+        [Required, RegularExpression(@"^\#(\d|[a-f]){6}$")]
         public string hcl {get { return _fields.ContainsKey("hcl")?_fields["hcl"]:null;}}
-        [Required,RegularExpression("(amb)|(blu)|(brn)|(gry)|(grn)|(hzl)|(oth)")]
+        [Required,RegularExpression(@"^((amb)|(blu)|(brn)|(gry)|(grn)|(hzl)|(oth))$")]
         public string ecl {get { return _fields.ContainsKey("ecl")?_fields["ecl"]:null;}}
-        [Required, RegularExpression(@"[0-9]{9}")]
+        [Required, RegularExpression(@"^[0-9]{9}$")]
         public string pid {get { return _fields.ContainsKey("pid")?_fields["pid"]:null;}}
         public string cid {get { return _fields.ContainsKey("cid")?_fields["cid"]:null;}}
 
+        List<ValidationResult> validationResults = new List<ValidationResult>();
 
         public virtual bool IsValid => isValid();
 
@@ -104,13 +122,15 @@ namespace AoC.Solvers
         bool isValid()
         {
             var ctx = new ValidationContext(this);
-            
-            var results = new List<ValidationResult>();
-            var valid = Validator.TryValidateObject(this,ctx,results);
+            validationResults = new List<ValidationResult>();
+            var valid = Validator.TryValidateObject(this,ctx,validationResults);
             valid = valid && heightIsValid();
-            valid = valid && Regex.IsMatch(pid,@"^[0-9]{9}$");
+            valid = valid && Regex.IsMatch(hcl,@"^\#(\d|[a-f]){6}$");
             valid = valid && Regex.IsMatch(ecl,@"^((amb)|(blu)|(brn)|(gry)|(grn)|(hzl)|(oth))$");
-            valid = valid && Regex.IsMatch(hcl,@"^(#\d{6}|[a-f]{6})$");
+            valid = valid && Regex.IsMatch(pid,@"^[0-9]{9}$");
+            valid = valid && byr >= 1920 && byr <= 2002;
+            valid = valid && eyr >= 2020 && eyr <= 2030;
+            valid = valid && iyr >= 2010 && iyr <= 2020;
             return valid; 
         }
 

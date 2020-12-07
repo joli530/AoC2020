@@ -32,6 +32,8 @@ namespace AdventOfCode
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
+            var testSolver = new SolverDay4(@"input\2020\input_4.txt");
+            testSolver.TestPart2(@"input\2020\testdata_4.txt","4");
             var solvers = new List<ISolver>();
             solvers.Add(new SolverDay1(@"input\2020\input_1.txt"));
             solvers.Add(new SolverDay2(@"input\2020\input_2.txt"));
