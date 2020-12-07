@@ -108,9 +108,9 @@ namespace AoC.Solvers
             var results = new List<ValidationResult>();
             var valid = Validator.TryValidateObject(this,ctx,results);
             valid = valid && heightIsValid();
-            valid = valid && Regex.IsMatch(pid,@"[0-9]{9}");
-            valid = valid && Regex.IsMatch(ecl,@"(amb)|(blu)|(brn)|(gry)|(grn)|(hzl)|(oth)");
-            valid = valid && Regex.IsMatch(hcl,@"#\d{6}|[a-f]{6}");
+            valid = valid && Regex.IsMatch(pid,@"^[0-9]{9}$");
+            valid = valid && Regex.IsMatch(ecl,@"^((amb)|(blu)|(brn)|(gry)|(grn)|(hzl)|(oth))$");
+            valid = valid && Regex.IsMatch(hcl,@"^(#\d{6}|[a-f]{6})$");
             return valid; 
         }
 
