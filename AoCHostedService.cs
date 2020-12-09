@@ -48,6 +48,14 @@ namespace AdventOfCode
             }
             solvers.Add(new SolverDay4(@"input\2020\input_4.txt"));
 
+
+            if(!System.IO.File.Exists(@"input\2020\input_8.txt"))
+            {
+                _inputReader.GetInput(2020,8,@"input\2020\input_8.txt");
+            }
+            solvers.Add(new SolverDay8(@"input\2020\input_8.txt"));
+
+
             if(!System.IO.File.Exists(@"input\2020\input_9.txt"))
             {
                 _inputReader.GetInput(2020,9,@"input\2020\input_9.txt");
