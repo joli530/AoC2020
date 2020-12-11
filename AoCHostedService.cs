@@ -62,6 +62,12 @@ namespace AdventOfCode
             }
             solvers.Add(new SolverDay9(@"input\2020\input_9.txt"));
 
+            if(!System.IO.File.Exists(@"input\2020\input_11.txt"))
+            {
+                _inputReader.GetInput(2020,11,@"input\2020\input_11.txt");
+            }
+            solvers.Add(new SolverDay11(@"input\2020\input_11.txt"));
+
             foreach (var solver in solvers)
             {
                 try
